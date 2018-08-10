@@ -1,0 +1,122 @@
+<view wx:if="{{weather == ''}}">
+  请稍后...
+</view>
+<view wx:else>
+  <!-- 基本信息 -->
+  <view class='wheather-basic'>
+    <!-- w-2样式布局 -->
+    <view class='city'>{{weather.city}}</view>
+    <image src='/resources/{{weather.img}}.png'> </image>
+    <view class='temperature'>
+      {{weather.temp}}
+      <text class='unit'>℃</text>
+    </view>
+    <view class='wheather'>{{weather.weather}}</view>
+    <view class='temp-high-low'>
+      {{weather.temphigh}}℃ ～ {{weather.templow}}℃
+    </view>
+    <view class='temp-high-low'>
+      <label class='week'>{{weather.week }}   </label>
+    </view>
+    <!-- <view> 更新时间 ： {{weather.updatetime}}</view> -->
+  </view>
+  <!-- 额外信息 -->
+  <view class="weui-panel weui-panel_access wheather-extra">
+    <view class="weui-panel__bd">
+      <!-- 湿度 气压 风力 风速 风级 - 右滑 -->
+      <view class="weui-media-box weui-media-box_appmsg">
+        <view class='item'>
+          <image src='/resources/ic_humidity.png' mode='aspectFit'> </image>
+          <view class='tip'>湿度(%RH)</view>
+          <view>{{weather.humidity}}</view>
+        </view>
+        <view class='line'></view>
+        <view class='item'>
+          <image src='/resources/ic_wind.png' mode='aspectFit'> </image>
+          <view class='tip'>{{weather.winddirect}}(米/秒)</view>
+          <view>{{weather.windspeed}} </view>
+        </view>
+        <view class='line'></view>
+        <view class='item'>
+          <image src='/resources/ic_pressure.png' mode='aspectFit'> </image>
+          <view class='tip'>气压(KPa)</view>
+          <view>{{weather.pressure / 1000.0}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 小时/天 天气预报 -->
+  <view class='wheather-detail'>
+    <!-- 标题 -->
+    <view class='title' wx:if="{{weatherDetailType == 'weather_desc_type_hourly'}}">
+      <text class='navibar-hour-selected' bindtap="weatherDetailTypeClick" id='weather_desc_type_hourly'>小时</text>
+      <text class='navibar-day' bindtap="weatherDetailTypeClick" id='weather_desc_type_daily'>天</text>
+    </view>
+    <view wx:else>
+      <text class='navibar-hour' bindtap="weatherDetailTypeClick" id='weather_desc_type_hourly'>小时</text>
+      <text class='navibar-day-selected' bindtap="weatherDetailTypeClick" id='weather_desc_type_daily'>天</text>
+    </view>
+
+    <!-- 内容 -->
+    <view>
+      <scroll-view scroll-x="true" hidden="{{weatherDetailType != 'weather_desc_type_hourly'}}" style="white-space: nowrap; ">
+        <view class='item-hourly' wx:for="{{weather.hourly}}" wx:key="item.time">
+          <view>{{item.time}}</view>
+          <image src='/resources/{{item.img}}.png'> </image>
+          <view>{{item.temp}}℃</view>
+          <view>{{item.weather}}</view>
+        </view>
+      </scroll-view>
+
+
+      <scroll-view scroll-x="true" hidden="{{weatherDetailType != 'weather_desc_type_daily'}}" style="white-space: nowrap; ">
+        <view class='item-daily' wx:for="{{weather.daily}}" wx:key="item.date">
+          <view>{{item.week}}</view>
+          <view>{{item.day.temphigh}}℃ ~ {{item.night.templow}}℃</view>
+          <view wx:if="{{item.day.img == item.night.img}}">
+            <image src='/resources/{{item.day.img}}.png'> </image>
+          </view>
+          <view wx:else>
+            <image src='/resources/{{item.day.img}}.png'> </image>
+            <image src='/resources/{{item.night.img}}.png'> </image>
+          </view>
+
+          <view wx:if="{{item.day.img == item.night.img}}">
+            <text>{{item.day.weather}}</text>
+          </view>
+          <view wx:else>
+            <text>{{item.day.weather}} 转 {{item.night.weather}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+    </view>
+
+
+  </view>
+
+  <view>
+    <!-- 生活指数 -->
+
+  </view>
+  <view class='weather-living-index'>
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_appmsg" wx:for="{{weather.index}}" wx:key="item.iname">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image src="/resources/index/{{item.iname}}.png"></image>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="title inaline"><label class='index-iname'>{{item.iname}}</label> - {{item.ivalue}}</view>
+          <view class="subtitle intwoline">{{item.detail}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view>
+    <!-- aqi -->
+
+  </view>
+
+</view>
