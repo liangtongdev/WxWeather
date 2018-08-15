@@ -1,3 +1,5 @@
+![](https://github.com/liangtongdev/WxWeather/blob/master/propaganda.png)
+
 ####  天气预报
 
 微信小程序之练手项目，天气接口使用阿里云平台 https://market.aliyun.com/ 天气接口
