@@ -1,5 +1,5 @@
 
-### 注：阿里云平台上购买的API接口下架。天气查询失败。需要替换下查询接口才能正常运行！！！
+
 
 
 ![](https://github.com/liangtongdev/WxWeather/blob/master/propaganda.png)
